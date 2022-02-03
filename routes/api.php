@@ -21,8 +21,29 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'Api\v1', 'prefix' => 'v1'], function() {
     /*
     |--------------------------------------------------------------------------
-    | Public api
+    | Registration API
     |--------------------------------------------------------------------------
     */
     Route::post('register', 'UserController@register');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication / Login API
+    |--------------------------------------------------------------------------
+    */
+    Route::post('login', 'AuthController@login')->middleware("throttle:5,2");
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authenticated Users
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        /*
+        |--------------------------------------------------------------------------
+        | Order API
+        |--------------------------------------------------------------------------
+        */
+        Route::post('order', 'ProductController@order')->middleware("throttle:5,2");
+    });
 });
