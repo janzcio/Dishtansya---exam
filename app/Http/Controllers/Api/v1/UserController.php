@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Users\LoginUser;
 use App\Services\Users\CreateUser;
 use App\Http\Controllers\Controller;
+use App\Services\Users\GetAdminUsers;
 use App\Http\Requests\RegisterUserRequest;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\RegisteredUserNotification;
@@ -98,13 +99,14 @@ class UserController extends Controller
      */
     public function register(
                             RegisterUserRequest $registerUserRequest, 
-                            CreateUser $createUser
+                            CreateUser $createUser,
+                            GetAdminUsers $getAdminUsers
                             ){
                             
         $user = $createUser->execute($registerUserRequest->all());
         
-        $admins = User::where('name', 'admin')->get();
-
+        $admins = $getAdminUsers->execute();
+                 
         Notification::send($admins, new RegisteredUserNotification($user));
         
         return $this->generateCreatedResponse(["message" => "User successfully registered"]);
