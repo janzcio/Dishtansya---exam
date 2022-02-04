@@ -1,2 +1,8 @@
-# Dishtansya---exam
-Dishtansya is a food delivery app that provides delivery service from food chains and restaurants around the globe.
+## Installation
+
+- Copy ***.env.example*** to ***.env*** and fill the correct details.
+- Run ***composer install***.
+- Run ***php artisan key:generate***.
+- Run ***php artisan migrate:refresh --seed***.
+
+- Run ***php artisan test***.
