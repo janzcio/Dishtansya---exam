@@ -27,7 +27,7 @@ Route::group(['namespace' => 'Api\v1', 'prefix' => '/'], function() {
     | Authentication / Login API
     |--------------------------------------------------------------------------
     */
-    Route::post('login', 'AuthController@login')->middleware("throttle:5,2");
+    Route::post('login', 'AuthController@login')->middleware("throttle:5,5");
 
     /*
     |--------------------------------------------------------------------------
@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Api\v1', 'prefix' => '/'], function() {
     |--------------------------------------------------------------------------
     */
     Route::group(['middleware' => ['auth:sanctum']], function () {
+
         /*
         |--------------------------------------------------------------------------
         | Order API
