@@ -4,3 +4,5 @@
 - Run ***composer install***.
 - Run ***php artisan key:generate***.
 - Run ***php artisan migrate:refresh --seed***.
+
+- Run ***php artisan test***.
