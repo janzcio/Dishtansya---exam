@@ -95,6 +95,7 @@ class UserController extends Controller
      *
      * @param RegisterUserRequest $registerUserRequest
      * @param CreateUser $createUser
+     * @param GetAdminUsers $getAdminUsers
      * @return \Illuminate\Http\Response
      */
     public function register(
@@ -106,7 +107,7 @@ class UserController extends Controller
         $user = $createUser->execute($registerUserRequest->all());
         
         $admins = $getAdminUsers->execute();
-                 
+        
         Notification::send($admins, new RegisteredUserNotification($user));
         
         return $this->generateCreatedResponse(["message" => "User successfully registered"]);
