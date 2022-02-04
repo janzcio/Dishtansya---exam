@@ -5,4 +5,5 @@
 - Run ***php artisan key:generate***.
 - Run ***php artisan migrate:refresh --seed***.
 
+## Run test
 - Run ***php artisan test***.
