@@ -61,6 +61,24 @@ class UserTest extends TestCase
         $response->assertStatus(401);
     }
 
+    public function test_user_order_out_of_stock()
+    {
+        $logInResponse = $this->post('/api/login', [
+            'email' => 'backend@multisyscorp.com',
+            'password' => 'test123'
+        ]);
+        $decoded_response = $logInResponse->json();
+
+        $response = $this->post('/api/order', [
+            'product_id' => 1,
+            'quantity' => 20
+        ],[
+            'Authorization' => 'Bearer ' . $decoded_response["access_token"]
+        ]);
+        
+        $response->assertStatus(400);
+    }
+
     public function test_if_user_using_invalid_crendential_too_many_attempts()
     {
         $this->post('/api/login', [
@@ -103,7 +121,7 @@ class UserTest extends TestCase
             'password' => 'test123'
         ]);
         $decoded_response = $logInResponse->json();
-
+        
         $response = $this->post('/api/order', [
             'product_id' => '1',
             'quantity' => '1'
@@ -112,24 +130,6 @@ class UserTest extends TestCase
         ]);
 
         $response->assertStatus(201);
-    }
-
-    public function test_user_order_out_of_stock()
-    {
-        $logInResponse = $this->post('/api/login', [
-            'email' => 'backend@multisyscorp.com',
-            'password' => 'test123'
-        ]);
-        $decoded_response = $logInResponse->json();
-
-        $response = $this->post('/api/order', [
-            'product_id' => 1,
-            'quantity' => 20
-        ],[
-            'Authorization' => 'Bearer ' . $decoded_response["access_token"]
-        ]);
-        
-        $response->assertStatus(400);
     }
 
 }
